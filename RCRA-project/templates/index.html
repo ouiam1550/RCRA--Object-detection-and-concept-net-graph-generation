@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détection d'Objets & ConceptNet</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Détection d'Objets et generation du graphe à partir de ConceptNet</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required><br>
+            <button type="submit">Analyser l'image</button>
+        </form>
+
+        {% if uploaded %}
+            <h2>Résultat :</h2>
+            <img src="{{ url_for('result_image', filename=filename) }}" alt="Résultat de détection">
+
+            <h2>Objets détectés :</h2>
+            <ul>
+                {% for obj in objects %}
+                    <li>{{ obj }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Relations ConceptNet :</h2>
+            <img src="{{ url_for('graph_image', filename=filename+'.png') }}" alt="Graphe ConceptNet">
+        {% endif %}
+    </div>
+</body>
+</html>
